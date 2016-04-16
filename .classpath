@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/Relin/Downloads/Compressed/Java jar包/hamcrest-1.10.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Relin/Downloads/Compressed/Java jar包/java-json.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Relin/Downloads/Compressed/Java jar包/junit-4.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_74">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="com.genuitec.runtime.library/com.genuitec.hibernate_4.1">
+		<attributes>
+			<attribute name="owner.project.facets" value="me.hibernate"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.38-bin.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

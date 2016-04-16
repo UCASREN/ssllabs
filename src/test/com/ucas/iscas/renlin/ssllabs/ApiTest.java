@@ -1,6 +1,11 @@
 package test.com.ucas.iscas.renlin.ssllabs;
 
+import java.util.Map;
+
 import com.ucas.iscas.renlin.ssllabs.Api;
+import com.ucas.iscas.renlin.utils.Utilities;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
@@ -19,11 +24,14 @@ public class ApiTest
 	}
 	
 	@Test
-	public void testFetchHostInformation()
+	public void testFetchHostInformation() throws JSONException
 	{
 		Api api = new Api();
-		JSONObject hostInformation = api.fetchHostInformation("https://www.baidu.com", false, true, false, null, "done", true);
+		JSONObject hostInformation = api.fetchHostInformation("baidu.com", false, false, false, null, "done", true);
+		Map<String, Object> result = Utilities.jsonToMap(hostInformation);
+		
 		System.out.println(hostInformation);
+		System.out.println(result.get("status"));
 		ApiAssert.assertApiDataFetched(hostInformation);
 		
 		//TODO: Check API response "host" with requested host
