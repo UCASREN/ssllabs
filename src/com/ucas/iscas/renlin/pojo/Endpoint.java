@@ -1,18 +1,27 @@
 package com.ucas.iscas.renlin.pojo;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.metamodel.source.annotations.attribute.type.LobTypeResolver;
 
 /**
  * Endpoint entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "endpoint", catalog = "ssllabs")
+@Table(name = "endpoint")
 public class Endpoint implements java.io.Serializable {
 
 	// Fields
@@ -32,7 +41,10 @@ public class Endpoint implements java.io.Serializable {
 	private Integer duration;
 	private Integer eta;
 	private Short delegation;
-	private Endpointdetails details;
+	
+	private Endpointdetails details_info;
+	
+	private String detailsString;
 
 	// Constructors
 
@@ -46,14 +58,14 @@ public class Endpoint implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Endpoint(Integer id, String host, String ipAddress, String serverName,
+	public Endpoint(Integer id, Host host, String ipAddress, String serverName,
 			String statusMessage, String statusDetails,
 			String statusDetailsMessage, String grade,
 			String gradeTrustIgnored, Boolean hasWarnings,
 			Boolean isExceptional, Short progress, Integer duration,
-			Integer eta, Short delegation, Endpointdetails details) {
+			Integer eta, Short delegation, Endpointdetails details_info) {
 		this.id = id;
-		this.host = host;
+		this.host = host.getHost();
 		this.ipAddress = ipAddress;
 		this.serverName = serverName;
 		this.statusMessage = statusMessage;
@@ -67,7 +79,8 @@ public class Endpoint implements java.io.Serializable {
 		this.duration = duration;
 		this.eta = eta;
 		this.delegation = delegation;
-		this.details = details;
+		this.details_info = details_info;
+		this.detailsString = details_info.toString();
 	}
 
 	// Property accessors
@@ -81,14 +94,15 @@ public class Endpoint implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "host")
+/*	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "host_id")*/
+	@Column(name = "host")
 	public String getHost() {
 		return this.host;
 	}
 
-	public void setHost(String host) {
-		this.host = host;
+	public void setHost(Host host) {
+		this.host = host.getHost();
 	}
 
 	@Column(name = "ipAddress")
@@ -208,13 +222,24 @@ public class Endpoint implements java.io.Serializable {
 		this.delegation = delegation;
 	}
 
-	@Column(name = "details")
-	public Endpointdetails getDetails() {
-		return this.details;
+/*    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="endpointdetails_id")*/
+	public Endpointdetails getDetails_info() {
+		return details_info;
 	}
 
-	public void setDetails(Endpointdetails details) {
-		this.details = details;
+	public void setDetails_info(Endpointdetails details_info) {
+		this.details_info = details_info;
+	}
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name="details_info", columnDefinition="TEXT")
+	public String getDetailsString() {
+		return detailsString;
+	}
+	public void setDetailsString() {
+		this.detailsString = details_info.toString();
 	}
 
 }

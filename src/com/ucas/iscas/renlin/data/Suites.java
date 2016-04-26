@@ -1,8 +1,4 @@
-package com.ucas.iscas.renlin.pojo;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package com.ucas.iscas.renlin.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +15,7 @@ public class Suites implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Set<Suite> list = new HashSet<Suite>();
+	private String list;
 	private Boolean preference;
 
 	// Constructors
@@ -34,7 +30,7 @@ public class Suites implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Suites(Integer id, Set<Suite> list, Boolean preference) {
+	public Suites(Integer id, String list, Boolean preference) {
 		this.id = id;
 		this.list = list;
 		this.preference = preference;
@@ -52,11 +48,11 @@ public class Suites implements java.io.Serializable {
 	}
 
 	@Column(name = "list", length = 65535)
-	public Set<Suite> getList() {
+	public String getList() {
 		return this.list;
 	}
 
-	public void setList(Set<Suite> list) {
+	public void setList(String list) {
 		this.list = list;
 	}
 

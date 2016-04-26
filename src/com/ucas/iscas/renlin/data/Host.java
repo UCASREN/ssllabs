@@ -19,17 +19,18 @@ public class Host implements java.io.Serializable {
 
 	// Fields
 
+	private Integer id;
 	private String host;
-	private String port;
+	private Integer port;
 	private String protocol;
 	private Boolean isPublic;
-	private Boolean status;
+	private String status;
 	private String statusMessage;
-	private String startTime;
-	private String testTime;
+	private Long startTime;
+	private Long testTime;
 	private String engineVersion;
 	private String criteriaVersion;
-	private String cacheExpiryTime;
+	private Long cacheExpiryTime;
 	private String endpoints;
 	private String certHostnames;
 	private Set<Endpoint> endpoints_1 = new HashSet<Endpoint>(0);
@@ -41,16 +42,17 @@ public class Host implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Host(String host) {
-		this.host = host;
+	public Host(Integer id) {
+		this.id = id;
 	}
 
 	/** full constructor */
-	public Host(String host, String port, String protocol, Boolean isPublic,
-			Boolean status, String statusMessage, String startTime,
-			String testTime, String engineVersion, String criteriaVersion,
-			String cacheExpiryTime, String endpoints, String certHostnames,
-			Set<Endpoint> endpoints_1) {
+	public Host(Integer id, String host, Integer port, String protocol,
+			Boolean isPublic, String status, String statusMessage,
+			Long startTime, Long testTime, String engineVersion,
+			String criteriaVersion, Long cacheExpiryTime, String endpoints,
+			String certHostnames, Set<Endpoint> endpoints_1) {
+		this.id = id;
 		this.host = host;
 		this.port = port;
 		this.protocol = protocol;
@@ -69,7 +71,16 @@ public class Host implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@Column(name = "host", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "host")
 	public String getHost() {
 		return this.host;
 	}
@@ -79,11 +90,11 @@ public class Host implements java.io.Serializable {
 	}
 
 	@Column(name = "port")
-	public String getPort() {
+	public Integer getPort() {
 		return this.port;
 	}
 
-	public void setPort(String port) {
+	public void setPort(Integer port) {
 		this.port = port;
 	}
 
@@ -106,11 +117,11 @@ public class Host implements java.io.Serializable {
 	}
 
 	@Column(name = "status")
-	public Boolean getStatus() {
+	public String getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -124,20 +135,20 @@ public class Host implements java.io.Serializable {
 	}
 
 	@Column(name = "startTime")
-	public String getStartTime() {
+	public Long getStartTime() {
 		return this.startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Long startTime) {
 		this.startTime = startTime;
 	}
 
 	@Column(name = "testTime")
-	public String getTestTime() {
+	public Long getTestTime() {
 		return this.testTime;
 	}
 
-	public void setTestTime(String testTime) {
+	public void setTestTime(Long testTime) {
 		this.testTime = testTime;
 	}
 
@@ -160,11 +171,11 @@ public class Host implements java.io.Serializable {
 	}
 
 	@Column(name = "cacheExpiryTime")
-	public String getCacheExpiryTime() {
+	public Long getCacheExpiryTime() {
 		return this.cacheExpiryTime;
 	}
 
-	public void setCacheExpiryTime(String cacheExpiryTime) {
+	public void setCacheExpiryTime(Long cacheExpiryTime) {
 		this.cacheExpiryTime = cacheExpiryTime;
 	}
 

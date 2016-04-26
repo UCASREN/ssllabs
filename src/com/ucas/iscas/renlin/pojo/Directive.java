@@ -4,5 +4,4 @@ public class Directive {
 
 	public Directive() {
 	}
-
 }

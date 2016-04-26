@@ -9,10 +9,10 @@ import org.junit.Assert;
 
 public class ApiAssert extends Assert
 {
-	public static void assertApiDataFetched(JSONObject apiData)
+	public static void assertApiDataFetched(JSONObject hostInformationCached)
 	{
 		// 断言返回结果不为空，否则抛出异常AssertionError:Could not fetch data from API
-		Assert.assertTrue("Could not fetch data from API", apiData.toString().length() > 2);
+		Assert.assertTrue("Could not fetch data from API", hostInformationCached.toString().length() > 2);
 	}
 	
 	public static void assertApiResponseCode(String apiUrl, int expected)

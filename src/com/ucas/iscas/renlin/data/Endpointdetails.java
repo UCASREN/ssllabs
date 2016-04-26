@@ -2,10 +2,7 @@ package com.ucas.iscas.renlin.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -17,9 +14,10 @@ public class Endpointdetails implements java.io.Serializable {
 
 	// Fields
 
+	private Integer id;
+	private String host;
 	private String ipAddress;
-	private Endpoint endpoint;
-	private String hostStartTime;
+	private Long hostStartTime;
 	private String key;
 	private String cert;
 	private String chain;
@@ -39,7 +37,7 @@ public class Endpointdetails implements java.io.Serializable {
 	private Boolean staplingRevocationStatus;
 	private String staplingRevocationErrorMessage;
 	private Boolean sniRequired;
-	private String httpStatusCode;
+	private Integer httpStatusCode;
 	private String httpForwarding;
 	private Boolean supportsRc4;
 	private Boolean rc4withModern;
@@ -71,14 +69,13 @@ public class Endpointdetails implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Endpointdetails(String ipAddress, Endpoint endpoint) {
-		this.ipAddress = ipAddress;
-		this.endpoint = endpoint;
+	public Endpointdetails(Integer id) {
+		this.id = id;
 	}
 
 	/** full constructor */
-	public Endpointdetails(String ipAddress, Endpoint endpoint,
-			String hostStartTime, String key, String cert, String chain,
+	public Endpointdetails(Integer id, String host, String ipAddress,
+			Long hostStartTime, String key, String cert, String chain,
 			String protocols, String suites, String serverSignature,
 			Boolean prefixDelegation, Boolean nonPrefixDelegation,
 			Boolean vulnBeast, Boolean renegSupport, Boolean sessionResumption,
@@ -86,7 +83,7 @@ public class Endpointdetails implements java.io.Serializable {
 			String npnProtocols, Boolean sessionTickes, Boolean ocspStapling,
 			Boolean staplingRevocationStatus,
 			String staplingRevocationErrorMessage, Boolean sniRequired,
-			String httpStatusCode, String httpForwarding, Boolean supportsRc4,
+			Integer httpStatusCode, String httpForwarding, Boolean supportsRc4,
 			Boolean rc4withModern, Boolean rc4only, Boolean forwardSecrecy,
 			String sims, Boolean heartbleed, Boolean heartbeat,
 			Boolean openSslCcs, Boolean poodle, Boolean poodleTls,
@@ -94,8 +91,9 @@ public class Endpointdetails implements java.io.Serializable {
 			String dhPrimes, Boolean dhUsesKnownPrimes, Boolean dhYsReuse,
 			Boolean logjam, Boolean chaCha20preference, String hstsPolicy,
 			String hstsPreloads, String hpkpPolicy, String hpkpRoPolicy) {
+		this.id = id;
+		this.host = host;
 		this.ipAddress = ipAddress;
-		this.endpoint = endpoint;
 		this.hostStartTime = hostStartTime;
 		this.key = key;
 		this.cert = cert;
@@ -144,7 +142,25 @@ public class Endpointdetails implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@Column(name = "ipAddress", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "host")
+	public String getHost() {
+		return this.host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	@Column(name = "ipAddress")
 	public String getIpAddress() {
 		return this.ipAddress;
 	}
@@ -153,22 +169,12 @@ public class Endpointdetails implements java.io.Serializable {
 		this.ipAddress = ipAddress;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public Endpoint getEndpoint() {
-		return this.endpoint;
-	}
-
-	public void setEndpoint(Endpoint endpoint) {
-		this.endpoint = endpoint;
-	}
-
 	@Column(name = "hostStartTime")
-	public String getHostStartTime() {
+	public Long getHostStartTime() {
 		return this.hostStartTime;
 	}
 
-	public void setHostStartTime(String hostStartTime) {
+	public void setHostStartTime(Long hostStartTime) {
 		this.hostStartTime = hostStartTime;
 	}
 
@@ -345,11 +351,11 @@ public class Endpointdetails implements java.io.Serializable {
 	}
 
 	@Column(name = " httpStatusCode")
-	public String getHttpStatusCode() {
+	public Integer getHttpStatusCode() {
 		return this.httpStatusCode;
 	}
 
-	public void setHttpStatusCode(String httpStatusCode) {
+	public void setHttpStatusCode(Integer httpStatusCode) {
 		this.httpStatusCode = httpStatusCode;
 	}
 

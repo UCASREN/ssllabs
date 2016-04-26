@@ -1,8 +1,4 @@
-package com.ucas.iscas.renlin.pojo;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package com.ucas.iscas.renlin.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +15,7 @@ public class Chain implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Set<Chaincert> certs = new HashSet<Chaincert>();
+	private String certs;
 	private Short issues;
 
 	// Constructors
@@ -34,7 +30,7 @@ public class Chain implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Chain(Integer id, Set<Chaincert> certs, Short issues) {
+	public Chain(Integer id, String certs, Short issues) {
 		this.id = id;
 		this.certs = certs;
 		this.issues = issues;
@@ -52,11 +48,11 @@ public class Chain implements java.io.Serializable {
 	}
 
 	@Column(name = "certs")
-	public Set<Chaincert> getCerts() {
+	public String getCerts() {
 		return this.certs;
 	}
 
-	public void setCerts(Set<Chaincert> certs) {
+	public void setCerts(String certs) {
 		this.certs = certs;
 	}
 

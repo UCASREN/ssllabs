@@ -6,7 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,22 +17,22 @@ public class Endpoint implements java.io.Serializable {
 
 	// Fields
 
-	private String ipAddress;
+	private Integer id;
 	private Host host;
+	private String ipAddress;
 	private String serverName;
 	private String statusMessage;
 	private String statusDetails;
 	private String statusDetailsMessage;
 	private String grade;
 	private String gradeTrustIgnored;
-	private String hasWarnings;
-	private String isExceptional;
-	private String progress;
-	private String duration;
-	private String eta;
+	private Boolean hasWarnings;
+	private Boolean isExceptional;
+	private Short progress;
+	private Integer duration;
+	private Integer eta;
 	private Boolean delegation;
 	private String details;
-	private Endpointdetails endpointdetails;
 
 	// Constructors
 
@@ -42,19 +41,20 @@ public class Endpoint implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Endpoint(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public Endpoint(Integer id) {
+		this.id = id;
 	}
 
 	/** full constructor */
-	public Endpoint(String ipAddress, Host host, String serverName,
+	public Endpoint(Integer id, Host host, String ipAddress, String serverName,
 			String statusMessage, String statusDetails,
 			String statusDetailsMessage, String grade,
-			String gradeTrustIgnored, String hasWarnings, String isExceptional,
-			String progress, String duration, String eta, Boolean delegation,
-			String details, Endpointdetails endpointdetails) {
-		this.ipAddress = ipAddress;
+			String gradeTrustIgnored, Boolean hasWarnings,
+			Boolean isExceptional, Short progress, Integer duration,
+			Integer eta, Boolean delegation, String details) {
+		this.id = id;
 		this.host = host;
+		this.ipAddress = ipAddress;
 		this.serverName = serverName;
 		this.statusMessage = statusMessage;
 		this.statusDetails = statusDetails;
@@ -68,18 +68,17 @@ public class Endpoint implements java.io.Serializable {
 		this.eta = eta;
 		this.delegation = delegation;
 		this.details = details;
-		this.endpointdetails = endpointdetails;
 	}
 
 	// Property accessors
 	@Id
-	@Column(name = "ipAddress", unique = true, nullable = false)
-	public String getIpAddress() {
-		return this.ipAddress;
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -90,6 +89,15 @@ public class Endpoint implements java.io.Serializable {
 
 	public void setHost(Host host) {
 		this.host = host;
+	}
+
+	@Column(name = "ipAddress")
+	public String getIpAddress() {
+		return this.ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
 
 	@Column(name = "serverName")
@@ -147,47 +155,47 @@ public class Endpoint implements java.io.Serializable {
 	}
 
 	@Column(name = "hasWarnings")
-	public String getHasWarnings() {
+	public Boolean getHasWarnings() {
 		return this.hasWarnings;
 	}
 
-	public void setHasWarnings(String hasWarnings) {
+	public void setHasWarnings(Boolean hasWarnings) {
 		this.hasWarnings = hasWarnings;
 	}
 
 	@Column(name = "isExceptional")
-	public String getIsExceptional() {
+	public Boolean getIsExceptional() {
 		return this.isExceptional;
 	}
 
-	public void setIsExceptional(String isExceptional) {
+	public void setIsExceptional(Boolean isExceptional) {
 		this.isExceptional = isExceptional;
 	}
 
 	@Column(name = "progress")
-	public String getProgress() {
+	public Short getProgress() {
 		return this.progress;
 	}
 
-	public void setProgress(String progress) {
+	public void setProgress(Short progress) {
 		this.progress = progress;
 	}
 
 	@Column(name = "duration")
-	public String getDuration() {
+	public Integer getDuration() {
 		return this.duration;
 	}
 
-	public void setDuration(String duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
 	@Column(name = "eta")
-	public String getEta() {
+	public Integer getEta() {
 		return this.eta;
 	}
 
-	public void setEta(String eta) {
+	public void setEta(Integer eta) {
 		this.eta = eta;
 	}
 
@@ -207,15 +215,6 @@ public class Endpoint implements java.io.Serializable {
 
 	public void setDetails(String details) {
 		this.details = details;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "endpoint")
-	public Endpointdetails getEndpointdetails() {
-		return this.endpointdetails;
-	}
-
-	public void setEndpointdetails(Endpointdetails endpointdetails) {
-		this.endpointdetails = endpointdetails;
 	}
 
 }

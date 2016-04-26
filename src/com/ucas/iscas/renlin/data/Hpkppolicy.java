@@ -1,8 +1,4 @@
-package com.ucas.iscas.renlin.pojo;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package com.ucas.iscas.renlin.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +21,9 @@ public class Hpkppolicy implements java.io.Serializable {
 	private Long maxAge;
 	private Boolean includeSubDomains;
 	private String reportUri;
-	private Set<String> pins = new HashSet<String>(0);
-	private Set<String> matchedPins = new HashSet<String>(0);
-	private Directive directives;
+	private String pins;
+	private String matchedPins;
+	private String directives;
 
 	// Constructors
 
@@ -43,7 +39,7 @@ public class Hpkppolicy implements java.io.Serializable {
 	/** full constructor */
 	public Hpkppolicy(Integer id, String status, String header, String error,
 			Long maxAge, Boolean includeSubDomains, String reportUri,
-			Set<String> pins, Set<String> matchedPins, Directive directives) {
+			String pins, String matchedPins, String directives) {
 		this.id = id;
 		this.status = status;
 		this.header = header;
@@ -122,29 +118,29 @@ public class Hpkppolicy implements java.io.Serializable {
 	}
 
 	@Column(name = "pins")
-	public Set<String> getPins() {
+	public String getPins() {
 		return this.pins;
 	}
 
-	public void setPins(Set<String> pins) {
+	public void setPins(String pins) {
 		this.pins = pins;
 	}
 
 	@Column(name = "matchedPins")
-	public Set<String> getMatchedPins() {
+	public String getMatchedPins() {
 		return this.matchedPins;
 	}
 
-	public void setMatchedPins(Set<String> matchedPins) {
+	public void setMatchedPins(String matchedPins) {
 		this.matchedPins = matchedPins;
 	}
 
 	@Column(name = "directives")
-	public Directive getDirectives() {
+	public String getDirectives() {
 		return this.directives;
 	}
 
-	public void setDirectives(Directive directives) {
+	public void setDirectives(String directives) {
 		this.directives = directives;
 	}
 

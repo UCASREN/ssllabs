@@ -1,4 +1,4 @@
-package com.ucas.iscas.renlin.pojo;
+package com.ucas.iscas.renlin.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Key entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "key")
+@Table(name = "key", catalog = "ssllabs")
 public class Key implements java.io.Serializable {
 
 	// Fields
@@ -97,12 +97,6 @@ public class Key implements java.io.Serializable {
 
 	public void setQ(Boolean q) {
 		this.q = q;
-	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "size: " + size + ", Strength: " + strength + ", alg: " + alg + ", debianFlaw: " + debianFlaw + ", q: " + q;
 	}
 
 }

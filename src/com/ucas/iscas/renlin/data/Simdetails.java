@@ -1,8 +1,4 @@
-package com.ucas.iscas.renlin.pojo;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package com.ucas.iscas.renlin.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +15,7 @@ public class Simdetails implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Set<Simulation> results = new HashSet<Simulation>(0);
+	private String results;
 
 	// Constructors
 
@@ -33,7 +29,7 @@ public class Simdetails implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Simdetails(Integer id, Set<Simulation> results) {
+	public Simdetails(Integer id, String results) {
 		this.id = id;
 		this.results = results;
 	}
@@ -50,11 +46,11 @@ public class Simdetails implements java.io.Serializable {
 	}
 
 	@Column(name = "results")
-	public Set<Simulation> getResults() {
+	public String getResults() {
 		return this.results;
 	}
 
-	public void setResults(Set<Simulation> results) {
+	public void setResults(String results) {
 		this.results = results;
 	}
 

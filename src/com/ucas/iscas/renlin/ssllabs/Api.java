@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.json.JSONObject;
 
 /**
@@ -24,8 +25,7 @@ public class Api {
 	/**
 	 * Fetch API information API Call: info
 	 * 
-	 * @return JSONObject
-	 *         engineVersion：SSL Labs软件版本，如1.22.37
+	 * @return JSONObject engineVersion：SSL Labs软件版本，如1.22.37
 	 *         criteriaVersion：评分准则版本，如2009l maxAssessments &&
 	 *         clientMaxAssessments：允许客户端同时发起的最大评估数量，25
 	 *         currentAssessments：客户端已提交的正在进行评估的数量，0
@@ -64,8 +64,8 @@ public class Api {
 	 * @param ignoreMismatch
 	 *            ：当设置为on时，表示即使服务器证书与主机域名不匹配仍然进行评估过程，默认off，注意当返回的是缓存的评估结果时，
 	 *            这个参数将被忽略。
-	 * @return JSONObject
-	 *            : Host Object
+	 * @return JSONObject : Host Object
+	 * @throws IOException
 	 */
 	public JSONObject fetchHostInformation(String host, boolean publish,
 			boolean startNew, boolean fromCache, String maxAge, String all,
@@ -89,7 +89,6 @@ public class Api {
 			json = new JSONObject(jsonString);
 		} catch (Exception ignored) {
 		}
-
 		return (json);
 	}
 
@@ -102,6 +101,7 @@ public class Api {
 	 * @param publish
 	 * @param ignoreMismatch
 	 * @return JSONObject
+	 * @throws IOException
 	 */
 	public JSONObject fetchHostInformationCached(String host, String maxAge,
 			boolean publish, boolean ignoreMismatch) {
@@ -118,8 +118,8 @@ public class Api {
 	 *            ：域名的IP地址
 	 * @param fromCache
 	 *            ：是否从缓存中获取评估结果
-	 * @return JSONObject
-	 *            ：Endpoint object()
+	 * @return JSONObject ：Endpoint object()
+	 * @throws IOException
 	 */
 	public JSONObject fetchEndpointData(String host, String s, boolean fromCache) {
 		String jsonString;
@@ -143,7 +143,8 @@ public class Api {
 	/**
 	 * Fetch status codes API Call: getStatusCodes
 	 * 
-	 * @return JSONObject
+	 * @return String
+	 * @throws IOException
 	 */
 	public JSONObject fetchStatusCodes() {
 		String jsonString;
@@ -159,11 +160,12 @@ public class Api {
 	}
 
 	/**
-	 * Send custom API request and return API response
-	 * 发送一个自定义的API请求，并返回API调用的响应
+	 * Send custom API request and return API response 发送一个自定义的API请求，并返回API调用的响应
+	 * 
 	 * @param apiCall
 	 * @param parameters
 	 * @return String
+	 * @throws IOException
 	 */
 	public String sendCustomApiRequest(String apiCall,
 			Map<String, String> parameters) {
@@ -178,14 +180,13 @@ public class Api {
 	}
 
 	/**
-	 * Sends an api request and return api response
-	 * 发送一个API请求，并返回API响应的结果。
+	 * Sends an api request and return api response 发送一个API请求，并返回API响应的结果。
+	 * 
 	 * @param apiCall
-	 *               ：API请求名称
+	 *            ：API请求名称
 	 * @param parameters
-	 *               ：请求参数 
-	 * @return String
-	 *               ：返回响应的结果
+	 *            ：请求参数
+	 * @return String ：返回响应的结果
 	 * @throws IOException
 	 */
 	private String sendApiRequest(String apiCall, Map<String, String> parameters)
@@ -211,8 +212,8 @@ public class Api {
 	}
 
 	/**
-	 * Helper function to build GET parameter string
-	 * 辅助函数：用来创建URL请求的参数
+	 * Helper function to build GET parameter string 辅助函数：用来创建URL请求的参数
+	 * 
 	 * @param parameters
 	 * @return String
 	 */

@@ -1,30 +1,53 @@
 package com.ucas.iscas.renlin.pojo;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 /**
  * Endpointdetails entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "endpointdetails", catalog = "ssllabs")
+@Table(name = "endpointdetails")
 public class Endpointdetails implements java.io.Serializable {
 
 	// Fields
 
 	private Integer id;
 	private String host;
-	private String ipAddress;
+	private String ip;
 	private Long hostStartTime;
-	private Key key;
-	private Cert cert;
-	private Chain chain;
-	private List<Protocol> protocols;
-	private Suites suites;
+	
+	private Key key_info;
+	private String keyString;
+	
+	private Cert cert_info;
+	private String certString;
+	
+	private Chain chain_info;
+	private String chainString;
+	
+	private Set<Protocol> protocols = new HashSet<Protocol>(0);
+	private String protocolsString;
+	
+	private Suites suites_info;
+	private String suitesString;
+	
 	private String serverSignature;
 	private Boolean prefixDelegation;
 	private Boolean nonPrefixDelegation;
@@ -45,7 +68,10 @@ public class Endpointdetails implements java.io.Serializable {
 	private Boolean rc4WithModern;
 	private Boolean rc4Only;
 	private Integer forwardSecrecy;
-	private Simdetails sims;
+	
+	private Simdetails sims_info;
+	private String simsString;
+	
 	private Boolean heartbleed;
 	private Boolean heartbeat;
 	private Integer openSslCcs;
@@ -54,15 +80,27 @@ public class Endpointdetails implements java.io.Serializable {
 	private Boolean fallbackScsv;
 	private Boolean freak;
 	private Integer hasSct;
-	private List<String> dhPrimes;
+	
+	private Set<String> dhPrimes = new HashSet<String>(0);
+	private String dhPrimeString;
+	
 	private Integer dhUsesKnownPrimes;
 	private Boolean dhYsReuse;
 	private Boolean logjam;
 	private Boolean chaCha20preference;
-	private Hstspolicy hstsPolicy;
-	private List<Hstspreload> hstsPreloads;
-	private Hpkppolicy hpkpPolicy;
-	private Hpkppolicy hpkpRoPolicy;
+	
+	private Hstspolicy hstsPolicy_info;
+	private String hstsPolicyString;
+	
+	private Set<Hstspreload> hstsPreloads = new HashSet<Hstspreload>(0);
+	private String hstsPreloadsString;
+	
+	private Hpkppolicy hpkpPolicy_info;
+	private String hpkpPolicyString;
+	
+	private Hpkppolicy hpkpRoPolicy_info;
+	private String hpkpRoPolicyString;
+	
 
 	// Constructors
 
@@ -75,10 +113,11 @@ public class Endpointdetails implements java.io.Serializable {
 		this.id = id;
 	}
 
-	/** full constructor */
-	public Endpointdetails(Integer id, String host, String ipAddress,
-			Long hostStartTime, Key key, Cert cert, Chain chain,
-			List<Protocol> protocols, Suites suites, String serverSignature,
+	/** full constructor 
+	 * @param endpoint */
+	public Endpointdetails(Integer id, Host host, Endpoint endpoint,
+			Long hostStartTime, Key key_info, Cert cert_info, Chain chain_info,
+			Set<Protocol> protocols, Suites suites_info, String serverSignature,
 			Boolean prefixDelegation, Boolean nonPrefixDelegation,
 			Boolean vulnBeast, Integer renegSupport, Integer sessionResumption,
 			Integer compressionMethods, Boolean supportsNpn,
@@ -87,21 +126,26 @@ public class Endpointdetails implements java.io.Serializable {
 			String staplingRevocationErrorMessage, Boolean sniRequired,
 			Integer httpStatusCode, String httpForwarding, Boolean supportsRc4,
 			Boolean rc4withModern, Boolean rc4only, Integer forwardSecrecy,
-			Simdetails sims, Boolean heartbleed, Boolean heartbeat,
+			Simdetails sims_info, Boolean heartbleed, Boolean heartbeat,
 			Integer openSslCcs, Boolean poodle, Integer poodleTls,
 			Boolean fallbackScsv, Boolean freak, Integer hasSct,
-			List<String> dhPrimes, Integer dhUsesKnownPrimes, Boolean dhYsReuse,
-			Boolean logjam, Boolean chaCha20preference, Hstspolicy hstsPolicy,
-			List<Hstspreload> hstsPreloads, Hpkppolicy hpkpPolicy, Hpkppolicy hpkpRoPolicy) {
+			Set<String> dhPrimes, Integer dhUsesKnownPrimes, Boolean dhYsReuse,
+			Boolean logjam, Boolean chaCha20preference, Hstspolicy hstsPolicy_info,
+			Set<Hstspreload> hstsPreloads, Hpkppolicy hpkpPolicy_info, Hpkppolicy hpkpRoPolicy_info) {
 		this.id = id;
-		this.host = host;
-		this.ipAddress = ipAddress;
+		this.host = host.getHost();
+		this.ip = endpoint.getIpAddress();
 		this.hostStartTime = hostStartTime;
-		this.key = key;
-		this.cert = cert;
-		this.chain = chain;
+		this.key_info = key_info;
+		this.keyString = key_info.toString();
+		this.cert_info = cert_info;
+		this.certString = cert_info.toString();
+		this.chain_info = chain_info;
+		this.chainString = chain_info.toString();
 		this.protocols = protocols;
-		this.suites = suites;
+		this.protocolsString = protocols.toString();
+		this.suites_info = suites_info;
+		this.suitesString = suites_info.toString();
 		this.serverSignature = serverSignature;
 		this.prefixDelegation = prefixDelegation;
 		this.nonPrefixDelegation = nonPrefixDelegation;
@@ -122,7 +166,8 @@ public class Endpointdetails implements java.io.Serializable {
 		this.rc4WithModern = rc4withModern;
 		this.rc4Only = rc4only;
 		this.forwardSecrecy = forwardSecrecy;
-		this.sims = sims;
+		this.sims_info = sims_info;
+		this.simsString = sims_info.toString();
 		this.heartbleed = heartbleed;
 		this.heartbeat = heartbeat;
 		this.openSslCcs = openSslCcs;
@@ -132,14 +177,19 @@ public class Endpointdetails implements java.io.Serializable {
 		this.freak = freak;
 		this.hasSct = hasSct;
 		this.dhPrimes = dhPrimes;
+		this.dhPrimeString = dhPrimes.toString();
 		this.dhUsesKnownPrimes = dhUsesKnownPrimes;
 		this.dhYsReuse = dhYsReuse;
 		this.logjam = logjam;
 		this.chaCha20preference = chaCha20preference;
-		this.hstsPolicy = hstsPolicy;
+		this.hstsPolicy_info = hstsPolicy_info;
+		this.hstsPolicyString = hstsPolicy_info.toString();
 		this.hstsPreloads = hstsPreloads;
-		this.hpkpPolicy = hpkpPolicy;
-		this.hpkpRoPolicy = hpkpRoPolicy;
+		this.hstsPreloadsString = hstsPreloads.toString();
+		this.hpkpPolicy_info = hpkpPolicy_info;
+		this.hpkpPolicyString = hpkpPolicy_info.toString();
+		this.hpkpRoPolicy_info = hpkpRoPolicy_info;
+		this.hpkpRoPolicyString = hpkpRoPolicy_info.toString();
 	}
 
 	// Property accessors
@@ -148,28 +198,21 @@ public class Endpointdetails implements java.io.Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@Column(name = "host")
+
+	/*@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="host_id")*/
+	@Column(name="host")
 	public String getHost() {
 		return this.host;
 	}
-
-	public void setHost(String host) {
-		this.host = host;
+	public void setHost(Host host) {
+		this.host = host.getHost();
 	}
 
-	@Column(name = "ipAddress")
-	public String getIpAddress() {
-		return this.ipAddress;
-	}
-
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
 
 	@Column(name = "hostStartTime")
 	public Long getHostStartTime() {
@@ -180,49 +223,47 @@ public class Endpointdetails implements java.io.Serializable {
 		this.hostStartTime = hostStartTime;
 	}
 
-	@Column(name = "key")
-	public Key getKey() {
-		return this.key;
+	public Key getKey_info() {
+		return key_info;
 	}
 
-	public void setKey(Key key) {
-		this.key = key;
+	public void setKey_info(Key key_info) {
+		this.key_info = key_info;
 	}
 
-	@Column(name = "cert", length = 65535)
-	public Cert getCert() {
-		return this.cert;
+	public Cert getCert_info() {
+		return this.cert_info;
 	}
 
-	public void setCert(Cert cert) {
-		this.cert = cert;
+	public void setCert_info(Cert cert_info) {
+		this.cert_info = cert_info;
 	}
 
-	@Column(name = "chain")
-	public Chain getChain() {
-		return this.chain;
+
+	public Chain getChain_info() {
+		return this.chain_info;
 	}
 
-	public void setChain(Chain chain) {
-		this.chain = chain;
+	public void setChain_info(Chain chain_info) {
+		this.chain_info = chain_info;
 	}
 
-	@Column(name = "protocols")
-	public List<Protocol> getProtocols() {
+
+	@ElementCollection(targetClass=Protocol.class)
+	public Set<Protocol> getProtocols() {
 		return this.protocols;
 	}
-
-	public void setProtocols(List<Protocol> protocols) {
+	public void setProtocols(Set<Protocol> protocols) {
 		this.protocols = protocols;
 	}
 
-	@Column(name = "suites", length = 65535)
-	public Suites getSuites() {
-		return this.suites;
+
+	public Suites getSuites_info() {
+		return this.suites_info;
 	}
 
-	public void setSuites(Suites suites) {
-		this.suites = suites;
+	public void setSuites_info(Suites suites_info) {
+		this.suites_info = suites_info;
 	}
 
 	@Column(name = "serverSignature")
@@ -406,13 +447,13 @@ public class Endpointdetails implements java.io.Serializable {
 		this.forwardSecrecy = forwardSecrecy;
 	}
 
-	@Column(name = "sims")
-	public Simdetails getSims() {
-		return this.sims;
+
+	public Simdetails getSims_info() {
+		return this.sims_info;
 	}
 
-	public void setSims(Simdetails sims) {
-		this.sims = sims;
+	public void setSims_info(Simdetails sims_info) {
+		this.sims_info = sims_info;
 	}
 
 	@Column(name = "heartbleed")
@@ -487,12 +528,11 @@ public class Endpointdetails implements java.io.Serializable {
 		this.hasSct = hasSct;
 	}
 
-	@Column(name = "dhPrimes", length = 65535)
-	public List<String> getDhPrimes() {
+	public Set<String> getDhPrimes() {
 		return this.dhPrimes;
 	}
 
-	public void setDhPrimes(List<String> dhPrimes) {
+	public void setDhPrimes(Set<String> dhPrimes) {
 		this.dhPrimes = dhPrimes;
 	}
 
@@ -527,45 +567,162 @@ public class Endpointdetails implements java.io.Serializable {
 	public Boolean getChaCha20preference() {
 		return this.chaCha20preference;
 	}
-
 	public void setChaCha20preference(Boolean chaCha20preference) {
 		this.chaCha20preference = chaCha20preference;
 	}
-
-	@Column(name = "hstsPolicy")
-	public Hstspolicy getHstsPolicy() {
-		return this.hstsPolicy;
+	
+	public Hstspolicy getHstsPolicy_info() {
+		return this.hstsPolicy_info;
+	}
+	public void setHstsPolicy_info(Hstspolicy hstsPolicy_info) {
+		this.hstsPolicy_info = hstsPolicy_info;
 	}
 
-	public void setHstsPolicy(Hstspolicy hstsPolicy) {
-		this.hstsPolicy = hstsPolicy;
-	}
-
-	@Column(name = "hstsPreloads", length = 65535)
-	public List<Hstspreload> getHstsPreloads() {
+	@ElementCollection(targetClass=Hstspreload.class)
+	public Set<Hstspreload> getHstsPreloads() {
 		return this.hstsPreloads;
 	}
-
-	public void setHstsPreloads(List<Hstspreload> hstsPreloads) {
+	public void setHstsPreloads(Set<Hstspreload> hstsPreloads) {
 		this.hstsPreloads = hstsPreloads;
 	}
 
-	@Column(name = "hpkpPolicy")
-	public Hpkppolicy getHpkpPolicy() {
-		return this.hpkpPolicy;
+	public Hpkppolicy getHpkpPolicy_info() {
+		return this.hpkpPolicy_info;
+	}
+	public void setHpkpPolicy_info(Hpkppolicy hpkpPolicy_info) {
+		this.hpkpPolicy_info = hpkpPolicy_info;
 	}
 
-	public void setHpkpPolicy(Hpkppolicy hpkpPolicy) {
-		this.hpkpPolicy = hpkpPolicy;
+	public Hpkppolicy getHpkpRoPolicy_info() {
+		return this.hpkpRoPolicy_info;
+	}
+	public void setHpkpRoPolicy_info(Hpkppolicy hpkpRoPolicy_info) {
+		this.hpkpRoPolicy_info = hpkpRoPolicy_info;
 	}
 
-	@Column(name = "hpkpRoPolicy")
-	public Hpkppolicy getHpkpRoPolicy() {
-		return this.hpkpRoPolicy;
+	
+/*	@OneToOne(mappedBy="details")
+	@JoinColumn(name="endpoint_id")
+	public Endpoint getEndpoint() {
+		return endpoint;
 	}
 
-	public void setHpkpRoPolicy(Hpkppolicy hpkpRoPolicy) {
-		this.hpkpRoPolicy = hpkpRoPolicy;
+	public void setEndpoint(Endpoint endpoint) {
+		this.endpoint = endpoint;
+	}*/
+
+	@Column(name="ip")
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(Endpoint endpoint) {
+		this.ip = endpoint.getIpAddress();
+	}
+
+    @Column(name="key_info")
+	public String getKeyString() {
+		return keyString;
+	}
+	public void setKeyString() {
+		this.keyString = key_info.toString();
+	}
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name = "cert_info", columnDefinition="TEXT")
+	public String getCertString() {
+		return certString;
+	}
+	public void setCertString() {
+		this.certString = cert_info.toString();
+	}
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name = "chain_info", columnDefinition="LONGTEXT")
+	public String getChainString() {
+		return chainString;
+	}
+	public void setChainString() {
+		this.chainString = chain_info.toString();
+	}
+
+	
+	@Column(name = "protocols")
+	public String getProtocolsString() {
+		return protocolsString;
+	}
+	public void setProtocolsString() {
+		this.protocolsString = protocols.toString();
+	}
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name = "suites_info", columnDefinition="TEXT")
+	public String getSuitesString() {
+		return suitesString;
+	}
+	public void setSuitesString() {
+		this.suitesString = suites_info.toString();
+	}
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name = "sims_info", columnDefinition="LONGTEXT")
+	public String getSimsString() {
+		return simsString;
+	}
+	public void setSimsString() {
+		this.simsString = sims_info.toString();
+	}
+
+	@Type(type="text")
+	@Column(name = "dhPrimes")
+	public String getDhPrimeString() {
+		return dhPrimeString;
+	}
+	public void setDhPrimeString() {
+		this.dhPrimeString = dhPrimes.toString();
+	}
+
+
+	@Column(name = "hstsPolicy_info")
+	public String getHstsPolicyString() {
+		return hstsPolicyString;
+	}
+	public void setHstsPolicyString() {
+		this.hstsPolicyString = hstsPolicy_info.toString();
+	}
+
+	@Type(type="text")
+	@Column(name = "hstsPreloads")
+	public String getHstsPreloadsString() {
+		return hstsPreloadsString;
+	}
+	public void setHstsPreloadsString() {
+		this.hstsPreloadsString = hstsPreloads.toString();
+	}
+
+	@Column(name = "hpkpPolicy_info")
+	public String getHpkpPolicyString() {
+		return hpkpPolicyString;
+	}
+	public void setHpkpPolicyString() {
+		this.hpkpPolicyString = hpkpPolicy_info.toString();
+	}
+
+	@Column(name = "hpkpRoPolicy_info")
+	public String getHpkpRoPolicyString() {
+		return hpkpRoPolicyString;
+	}
+	public void setHpkpRoPolicyString() {
+		this.hpkpRoPolicyString = hpkpRoPolicy_info.toString();
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "dfsd";
 	}
 
 }

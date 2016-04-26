@@ -1,10 +1,6 @@
-package com.ucas.iscas.renlin.pojo;
+package com.ucas.iscas.renlin.data;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,20 +17,20 @@ public class Cert implements java.io.Serializable {
 
 	private Integer id;
 	private String subject;
-	private Set<String> commonNames = new HashSet<String>(0);
-	private Set<String> altNames = new HashSet<String>();
-	private long notBefore;
-	private long notAfter;
+	private String commonNames;
+	private String altNames;
+	private Timestamp notBefore;
+	private Timestamp notAfter;
 	private String issuerSubject;
 	private String sigAlg;
 	private String issuerLabel;
-	private Short revocationInfo;
-	private Set<String> crlURIs = new HashSet<String>(0);
-	private Set<String> ocspURIs = new HashSet<String>(0);
-	private Short revocationStatus;
-	private Short crlRevocationStatus;
-	private Short ocspRevocationStatus;
-	private Integer sgc;
+	private Boolean revocationInfo;
+	private String crlUris;
+	private String ocspUris;
+	private Boolean revocationStatus;
+	private Boolean crlRevocationStatus;
+	private Boolean ocspRevocationStatus;
+	private Boolean sgc;
 	private String validationType;
 	private Short issues;
 	private Boolean sct;
@@ -51,12 +47,12 @@ public class Cert implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Cert(Integer id, String subject, Set<String> commonNames,
-			Set<String> altNames, long notBefore, long notAfter,
+	public Cert(Integer id, String subject, String commonNames,
+			String altNames, Timestamp notBefore, Timestamp notAfter,
 			String issuerSubject, String sigAlg, String issuerLabel,
-			Short revocationInfo, Set<String> crlURIs, Set<String> ocspURIs,
-			Short revocationStatus, Short crlRevocationStatus,
-			Short ocspRevocationStatus, Integer sgc, String validationType,
+			Boolean revocationInfo, String crlUris, String ocspUris,
+			Boolean revocationStatus, Boolean crlRevocationStatus,
+			Boolean ocspRevocationStatus, Boolean sgc, String validationType,
 			Short issues, Boolean sct) {
 		this.id = id;
 		this.subject = subject;
@@ -68,8 +64,8 @@ public class Cert implements java.io.Serializable {
 		this.sigAlg = sigAlg;
 		this.issuerLabel = issuerLabel;
 		this.revocationInfo = revocationInfo;
-		this.crlURIs = crlURIs;
-		this.ocspURIs = ocspURIs;
+		this.crlUris = crlUris;
+		this.ocspUris = ocspUris;
 		this.revocationStatus = revocationStatus;
 		this.crlRevocationStatus = crlRevocationStatus;
 		this.ocspRevocationStatus = ocspRevocationStatus;
@@ -100,38 +96,38 @@ public class Cert implements java.io.Serializable {
 	}
 
 	@Column(name = "commonNames")
-	public Set<String> getCommonNames() {
+	public String getCommonNames() {
 		return this.commonNames;
 	}
 
-	public void setCommonNames(Set<String> commonNames) {
+	public void setCommonNames(String commonNames) {
 		this.commonNames = commonNames;
 	}
 
 	@Column(name = "altNames")
-	public Set<String> getAltNames() {
+	public String getAltNames() {
 		return this.altNames;
 	}
 
-	public void setAltNames(Set<String> altNames) {
+	public void setAltNames(String altNames) {
 		this.altNames = altNames;
 	}
 
 	@Column(name = "notBefore", length = 19)
-	public long getNotBefore() {
+	public Timestamp getNotBefore() {
 		return this.notBefore;
 	}
 
-	public void setNotBefore(long notBefore) {
+	public void setNotBefore(Timestamp notBefore) {
 		this.notBefore = notBefore;
 	}
 
 	@Column(name = "notAfter", length = 19)
-	public long getNotAfter() {
+	public Timestamp getNotAfter() {
 		return this.notAfter;
 	}
 
-	public void setNotAfter(long notAfter) {
+	public void setNotAfter(Timestamp notAfter) {
 		this.notAfter = notAfter;
 	}
 
@@ -163,65 +159,65 @@ public class Cert implements java.io.Serializable {
 	}
 
 	@Column(name = "revocationInfo")
-	public Short getRevocationInfo() {
+	public Boolean getRevocationInfo() {
 		return this.revocationInfo;
 	}
 
-	public void setRevocationInfo(Short revocationInfo) {
+	public void setRevocationInfo(Boolean revocationInfo) {
 		this.revocationInfo = revocationInfo;
 	}
 
 	@Column(name = "crlURIs")
-	public Set<String> getCrlUris() {
-		return this.crlURIs;
+	public String getCrlUris() {
+		return this.crlUris;
 	}
 
-	public void setCrlURIs(Set<String> crlURIs) {
-		this.crlURIs = crlURIs;
+	public void setCrlUris(String crlUris) {
+		this.crlUris = crlUris;
 	}
 
 	@Column(name = "ocspURIs")
-	public Set<String> getOcspURIs() {
-		return this.ocspURIs;
+	public String getOcspUris() {
+		return this.ocspUris;
 	}
 
-	public void setOcspURIs(Set<String> ocspURIs) {
-		this.ocspURIs = ocspURIs;
+	public void setOcspUris(String ocspUris) {
+		this.ocspUris = ocspUris;
 	}
 
 	@Column(name = "revocationStatus")
-	public Short getRevocationStatus() {
+	public Boolean getRevocationStatus() {
 		return this.revocationStatus;
 	}
 
-	public void setRevocationStatus(Short revocationStatus) {
+	public void setRevocationStatus(Boolean revocationStatus) {
 		this.revocationStatus = revocationStatus;
 	}
 
 	@Column(name = "crlRevocationStatus")
-	public Short getCrlRevocationStatus() {
+	public Boolean getCrlRevocationStatus() {
 		return this.crlRevocationStatus;
 	}
 
-	public void setCrlRevocationStatus(Short crlRevocationStatus) {
+	public void setCrlRevocationStatus(Boolean crlRevocationStatus) {
 		this.crlRevocationStatus = crlRevocationStatus;
 	}
 
 	@Column(name = "ocspRevocationStatus")
-	public Short getOcspRevocationStatus() {
+	public Boolean getOcspRevocationStatus() {
 		return this.ocspRevocationStatus;
 	}
 
-	public void setOcspRevocationStatus(Short ocspRevocationStatus) {
+	public void setOcspRevocationStatus(Boolean ocspRevocationStatus) {
 		this.ocspRevocationStatus = ocspRevocationStatus;
 	}
 
 	@Column(name = "sgc")
-	public Integer getSgc() {
+	public Boolean getSgc() {
 		return this.sgc;
 	}
 
-	public void setSgc(Integer sgc) {
+	public void setSgc(Boolean sgc) {
 		this.sgc = sgc;
 	}
 
