@@ -43,7 +43,7 @@ public class Host implements java.io.Serializable {
 	private String criteriaVersion;
 	private Long cacheExpiryTime;
 	
-	private Set<Endpoint> endpoints = new HashSet<Endpoint>(0);
+	public Set<Endpoint> endpoints = new HashSet<Endpoint>(0);
 	private String endpointsString;
 	
 	private Set<String> certHostnames = new HashSet<String>(0);
@@ -89,7 +89,7 @@ public class Host implements java.io.Serializable {
 
 	
 	//@OneToMany(targetEntity=Endpoint.class, fetch=FetchType.EAGER)
-	@ElementCollection(targetClass=Endpoint.class)
+	/*@ElementCollection(targetClass=Endpoint.class)
 	public Set<Endpoint> getEndpoints() {
 		return this.endpoints;
 	}
@@ -98,13 +98,13 @@ public class Host implements java.io.Serializable {
 		this.endpoints = endpoints;
 	}
 
-	
+	@ElementCollection(targetClass=String.class)
 	public Set<String> getCertHostnames() {
 		return this.certHostnames;
 	}
 	public void setCertHostnames(Set<String> certHostnames) {
 		this.certHostnames = certHostnames;
-	}
+	}*/
 	// Property accessors
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -214,9 +214,9 @@ public class Host implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "endpoints", columnDefinition="LONGTEXT")
 	public String getEndpointsString() {
-		return endpointsString;
+		return endpoints.toString();
 	}
-	public void setEndpointsString(Set<Endpoint> endpoints) {
+	public void setEndpointsString(String endpointsString) {
 		this.endpointsString = endpoints.toString();
 	}
 
@@ -224,9 +224,9 @@ public class Host implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "certHostnames", columnDefinition="TEXT")
 	public String getCertHostnameString() {
-		return certHostnameString;
+		return certHostnames.toString();
 	}
-	public void setCertHostnameString(Set<String> certHostnames) {
+	public void setCertHostnameString(String certHostnamesString) {
 		this.certHostnameString = certHostnames.toString();
 	}
 	

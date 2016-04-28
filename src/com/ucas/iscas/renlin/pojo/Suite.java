@@ -154,5 +154,11 @@ public class Suite implements java.io.Serializable {
 	public void setQ(Boolean q) {
 		this.q = q;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "id: " + iid + ", name: " + name + ", cipherStrength: " + cipherStrength + ", dhStrength: " + dhStrength + ", dhP: " + dhP + ", dhG: " + dhG + ", dhYs: " + dhYs + ", ecdhBits: " + ecdhBits + ", ecdhStrength: " + ecdhStrength + ", q: " + q;
+	}
 
 }

@@ -16,9 +16,9 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 		<!-- 映射类 -->
-		<mapping class="com.ucas.iscas.renlin.pojo.Endpoint" />
+	<!-- 	<mapping class="com.ucas.iscas.renlin.pojo.Endpoint" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Host" />
-		<mapping class="com.ucas.iscas.renlin.pojo.Endpointdetails" />
+		<mapping class="com.ucas.iscas.renlin.pojo.Endpointdetails" /> -->
 		<!-- <mapping class="com.ucas.iscas.renlin.pojo.Cert" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Key" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Simclient" />
@@ -34,5 +34,8 @@
 		<mapping class="com.ucas.iscas.renlin.pojo.Hstspolicy" /> -->
         <mapping class="test.com.ucas.iscas.renlin.pojo.Grade" />
 		<mapping class="test.com.ucas.iscas.renlin.pojo.Student" />
+		<mapping class="com.ucas.iscas.renlin.pojo.Endpoint" />
+		<mapping class="com.ucas.iscas.renlin.pojo.Host" />
+		<mapping class="com.ucas.iscas.renlin.pojo.Endpointdetails" />	
 	</session-factory>
 </hibernate-configuration>

@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -30,22 +32,24 @@ public class Endpointdetails implements java.io.Serializable {
 
 	private Integer id;
 	private String host;
+	public Host hostname;
 	private String ip;
+	public Endpoint endpoint;
 	private Long hostStartTime;
 	
-	private Key key_info;
+	private Key key;
 	private String keyString;
 	
-	private Cert cert_info;
+	private Cert cert;
 	private String certString;
 	
-	private Chain chain_info;
+	private Chain chain;
 	private String chainString;
 	
 	private Set<Protocol> protocols = new HashSet<Protocol>(0);
 	private String protocolsString;
 	
-	private Suites suites_info;
+	private Suites suites;
 	private String suitesString;
 	
 	private String serverSignature;
@@ -57,7 +61,7 @@ public class Endpointdetails implements java.io.Serializable {
 	private Integer compressionMethods;
 	private Boolean supportsNpn;
 	private String npnProtocols;
-	private Integer sessionTickes;
+	private Integer sessionTickets;
 	private Boolean ocspStapling;
 	private Integer staplingRevocationStatus;
 	private String staplingRevocationErrorMessage;
@@ -69,7 +73,7 @@ public class Endpointdetails implements java.io.Serializable {
 	private Boolean rc4Only;
 	private Integer forwardSecrecy;
 	
-	private Simdetails sims_info;
+	private Simdetails sims;
 	private String simsString;
 	
 	private Boolean heartbleed;
@@ -87,18 +91,18 @@ public class Endpointdetails implements java.io.Serializable {
 	private Integer dhUsesKnownPrimes;
 	private Boolean dhYsReuse;
 	private Boolean logjam;
-	private Boolean chaCha20preference;
+	private Boolean chaCha20Preference;
 	
-	private Hstspolicy hstsPolicy_info;
+	private Hstspolicy hstsPolicy;
 	private String hstsPolicyString;
 	
 	private Set<Hstspreload> hstsPreloads = new HashSet<Hstspreload>(0);
 	private String hstsPreloadsString;
 	
-	private Hpkppolicy hpkpPolicy_info;
+	private Hpkppolicy hpkpPolicy;
 	private String hpkpPolicyString;
 	
-	private Hpkppolicy hpkpRoPolicy_info;
+	private Hpkppolicy hpkpRoPolicy;
 	private String hpkpRoPolicyString;
 	
 
@@ -136,15 +140,15 @@ public class Endpointdetails implements java.io.Serializable {
 		this.host = host.getHost();
 		this.ip = endpoint.getIpAddress();
 		this.hostStartTime = hostStartTime;
-		this.key_info = key_info;
+		this.key = key_info;
 		this.keyString = key_info.toString();
-		this.cert_info = cert_info;
+		this.cert = cert_info;
 		this.certString = cert_info.toString();
-		this.chain_info = chain_info;
+		this.chain = chain_info;
 		this.chainString = chain_info.toString();
 		this.protocols = protocols;
 		this.protocolsString = protocols.toString();
-		this.suites_info = suites_info;
+		this.suites = suites_info;
 		this.suitesString = suites_info.toString();
 		this.serverSignature = serverSignature;
 		this.prefixDelegation = prefixDelegation;
@@ -155,7 +159,7 @@ public class Endpointdetails implements java.io.Serializable {
 		this.compressionMethods = compressionMethods;
 		this.supportsNpn = supportsNpn;
 		this.npnProtocols = npnProtocols;
-		this.sessionTickes = sessionTickes;
+		this.sessionTickets = sessionTickes;
 		this.ocspStapling = ocspStapling;
 		this.staplingRevocationStatus = staplingRevocationStatus;
 		this.staplingRevocationErrorMessage = staplingRevocationErrorMessage;
@@ -166,7 +170,7 @@ public class Endpointdetails implements java.io.Serializable {
 		this.rc4WithModern = rc4withModern;
 		this.rc4Only = rc4only;
 		this.forwardSecrecy = forwardSecrecy;
-		this.sims_info = sims_info;
+		this.sims = sims_info;
 		this.simsString = sims_info.toString();
 		this.heartbleed = heartbleed;
 		this.heartbeat = heartbeat;
@@ -181,19 +185,20 @@ public class Endpointdetails implements java.io.Serializable {
 		this.dhUsesKnownPrimes = dhUsesKnownPrimes;
 		this.dhYsReuse = dhYsReuse;
 		this.logjam = logjam;
-		this.chaCha20preference = chaCha20preference;
-		this.hstsPolicy_info = hstsPolicy_info;
+		this.chaCha20Preference = chaCha20preference;
+		this.hstsPolicy = hstsPolicy_info;
 		this.hstsPolicyString = hstsPolicy_info.toString();
 		this.hstsPreloads = hstsPreloads;
 		this.hstsPreloadsString = hstsPreloads.toString();
-		this.hpkpPolicy_info = hpkpPolicy_info;
+		this.hpkpPolicy = hpkpPolicy_info;
 		this.hpkpPolicyString = hpkpPolicy_info.toString();
-		this.hpkpRoPolicy_info = hpkpRoPolicy_info;
+		this.hpkpRoPolicy = hpkpRoPolicy_info;
 		this.hpkpRoPolicyString = hpkpRoPolicy_info.toString();
 	}
 
 	// Property accessors
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -207,10 +212,10 @@ public class Endpointdetails implements java.io.Serializable {
 	@JoinColumn(name="host_id")*/
 	@Column(name="host")
 	public String getHost() {
-		return this.host;
+		return hostname.getHost();
 	}
-	public void setHost(Host host) {
-		this.host = host.getHost();
+	public void setHost(String host) {
+		this.host = hostname.getHost();
 	}
 
 
@@ -223,48 +228,48 @@ public class Endpointdetails implements java.io.Serializable {
 		this.hostStartTime = hostStartTime;
 	}
 
-	public Key getKey_info() {
+/*	public Key getKey_info() {
 		return key_info;
 	}
 
 	public void setKey_info(Key key_info) {
 		this.key_info = key_info;
-	}
+	}*/
 
-	public Cert getCert_info() {
+/*	public Cert getCert_info() {
 		return this.cert_info;
 	}
 
 	public void setCert_info(Cert cert_info) {
 		this.cert_info = cert_info;
-	}
+	}*/
 
 
-	public Chain getChain_info() {
+/*	public Chain getChain_info() {
 		return this.chain_info;
 	}
 
 	public void setChain_info(Chain chain_info) {
 		this.chain_info = chain_info;
-	}
+	}*/
 
 
-	@ElementCollection(targetClass=Protocol.class)
+/*	@ElementCollection(targetClass=Protocol.class)
 	public Set<Protocol> getProtocols() {
 		return this.protocols;
 	}
 	public void setProtocols(Set<Protocol> protocols) {
 		this.protocols = protocols;
-	}
+	}*/
 
 
-	public Suites getSuites_info() {
+/*	public Suites getSuites_info() {
 		return this.suites_info;
 	}
 
 	public void setSuites_info(Suites suites_info) {
 		this.suites_info = suites_info;
-	}
+	}*/
 
 	@Column(name = "serverSignature")
 	public String getServerSignature() {
@@ -348,12 +353,12 @@ public class Endpointdetails implements java.io.Serializable {
 	}
 
 	@Column(name = "sessionTickes")
-	public Integer getSessionTickes() {
-		return this.sessionTickes;
+	public Integer getSessionTickets() {
+		return this.sessionTickets;
 	}
 
-	public void setSessionTickes(Integer sessionTickes) {
-		this.sessionTickes = sessionTickes;
+	public void setSessionTickets(Integer sessionTickes) {
+		this.sessionTickets = sessionTickes;
 	}
 
 	@Column(name = "ocspStapling")
@@ -448,13 +453,13 @@ public class Endpointdetails implements java.io.Serializable {
 	}
 
 
-	public Simdetails getSims_info() {
+/*	public Simdetails getSims_info() {
 		return this.sims_info;
 	}
 
 	public void setSims_info(Simdetails sims_info) {
 		this.sims_info = sims_info;
-	}
+	}*/
 
 	@Column(name = "heartbleed")
 	public Boolean getHeartbleed() {
@@ -528,13 +533,14 @@ public class Endpointdetails implements java.io.Serializable {
 		this.hasSct = hasSct;
 	}
 
+/*	@ElementCollection(targetClass=String.class)
 	public Set<String> getDhPrimes() {
 		return this.dhPrimes;
 	}
 
 	public void setDhPrimes(Set<String> dhPrimes) {
 		this.dhPrimes = dhPrimes;
-	}
+	}*/
 
 	@Column(name = "dhUsesKnownPrimes")
 	public Integer getDhUsesKnownPrimes() {
@@ -564,14 +570,14 @@ public class Endpointdetails implements java.io.Serializable {
 	}
 
 	@Column(name = "chaCha20Preference")
-	public Boolean getChaCha20preference() {
-		return this.chaCha20preference;
+	public Boolean getChaCha20Preference() {
+		return this.chaCha20Preference;
 	}
-	public void setChaCha20preference(Boolean chaCha20preference) {
-		this.chaCha20preference = chaCha20preference;
+	public void setChaCha20Preference(Boolean chaCha20preference) {
+		this.chaCha20Preference = chaCha20preference;
 	}
 	
-	public Hstspolicy getHstsPolicy_info() {
+/*	public Hstspolicy getHstsPolicy_info() {
 		return this.hstsPolicy_info;
 	}
 	public void setHstsPolicy_info(Hstspolicy hstsPolicy_info) {
@@ -598,7 +604,7 @@ public class Endpointdetails implements java.io.Serializable {
 	}
 	public void setHpkpRoPolicy_info(Hpkppolicy hpkpRoPolicy_info) {
 		this.hpkpRoPolicy_info = hpkpRoPolicy_info;
-	}
+	}*/
 
 	
 /*	@OneToOne(mappedBy="details")
@@ -613,116 +619,124 @@ public class Endpointdetails implements java.io.Serializable {
 
 	@Column(name="ip")
 	public String getIp() {
-		return ip;
+		return endpoint.getIpAddress();
 	}
-	public void setIp(Endpoint endpoint) {
+	public void setIp(String ip) {
 		this.ip = endpoint.getIpAddress();
 	}
 
     @Column(name="key_info")
 	public String getKeyString() {
-		return keyString;
+		return key.toString();
 	}
-	public void setKeyString() {
-		this.keyString = key_info.toString();
+	public void setKeyString(String keyString) {
+		this.keyString = key.toString();
 	}
 
 	@Lob
 	@Basic(fetch=FetchType.LAZY)
-	@Column(name = "cert_info", columnDefinition="TEXT")
+	@Column(name = "cert", columnDefinition="TEXT")
 	public String getCertString() {
-		return certString;
+		return cert.toString();
 	}
-	public void setCertString() {
-		this.certString = cert_info.toString();
+	public void setCertString(String cerString) {
+		this.certString = cert.toString();
 	}
 
 	@Lob
 	@Basic(fetch=FetchType.LAZY)
-	@Column(name = "chain_info", columnDefinition="LONGTEXT")
+	@Column(name = "chain", columnDefinition="LONGTEXT")
 	public String getChainString() {
-		return chainString;
+		return chain.toString();
 	}
-	public void setChainString() {
-		this.chainString = chain_info.toString();
+	public void setChainString(String chaiString) {
+		this.chainString = chain.toString();
 	}
 
-	
-	@Column(name = "protocols")
+
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name = "protocols", columnDefinition="TEXT")
 	public String getProtocolsString() {
-		return protocolsString;
+		return protocols.toString();
 	}
-	public void setProtocolsString() {
+	public void setProtocolsString(String protocolsString) {
 		this.protocolsString = protocols.toString();
 	}
 
 	@Lob
 	@Basic(fetch=FetchType.LAZY)
-	@Column(name = "suites_info", columnDefinition="TEXT")
+	@Column(name = "suites", columnDefinition="TEXT")
 	public String getSuitesString() {
-		return suitesString;
+		return suites.toString();
 	}
-	public void setSuitesString() {
-		this.suitesString = suites_info.toString();
+	public void setSuitesString(String suitesString) {
+		this.suitesString = suites.toString();
 	}
 
 	@Lob
 	@Basic(fetch=FetchType.LAZY)
-	@Column(name = "sims_info", columnDefinition="LONGTEXT")
+	@Column(name = "sims", columnDefinition="LONGTEXT")
 	public String getSimsString() {
-		return simsString;
+		return sims.toString();
 	}
-	public void setSimsString() {
-		this.simsString = sims_info.toString();
+	public void setSimsString(String simsString) {
+		this.simsString = sims.toString();
 	}
 
-	@Type(type="text")
-	@Column(name = "dhPrimes")
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	@Column(name = "dhPrimes", columnDefinition="TEXT")
+	//@ElementCollection(targetClass=String.class)
 	public String getDhPrimeString() {
-		return dhPrimeString;
+		return dhPrimes.toString();
 	}
-	public void setDhPrimeString() {
+	public void setDhPrimeString(String dhPrimeString) {
 		this.dhPrimeString = dhPrimes.toString();
 	}
 
 
-	@Column(name = "hstsPolicy_info")
+	@Column(name = "hstsPolicy")
 	public String getHstsPolicyString() {
-		return hstsPolicyString;
+		return hstsPolicy.toString();
 	}
-	public void setHstsPolicyString() {
-		this.hstsPolicyString = hstsPolicy_info.toString();
+	public void setHstsPolicyString(String hstsPolicyString) {
+		this.hstsPolicyString = hstsPolicy.toString();
 	}
 
 	@Type(type="text")
 	@Column(name = "hstsPreloads")
 	public String getHstsPreloadsString() {
-		return hstsPreloadsString;
+		return hstsPreloads.toString();
 	}
-	public void setHstsPreloadsString() {
+	public void setHstsPreloadsString(String hstsPreloadsString) {
 		this.hstsPreloadsString = hstsPreloads.toString();
 	}
 
-	@Column(name = "hpkpPolicy_info")
+	@Column(name = "hpkpPolicy")
 	public String getHpkpPolicyString() {
-		return hpkpPolicyString;
+		return hpkpPolicy.toString();
 	}
-	public void setHpkpPolicyString() {
-		this.hpkpPolicyString = hpkpPolicy_info.toString();
+	public void setHpkpPolicyString(String hpkpPolicyString) {
+		this.hpkpPolicyString = hpkpPolicy.toString();
 	}
 
-	@Column(name = "hpkpRoPolicy_info")
+	@Column(name = "hpkpRoPolicy")
 	public String getHpkpRoPolicyString() {
-		return hpkpRoPolicyString;
+		return hpkpRoPolicy.toString();
 	}
-	public void setHpkpRoPolicyString() {
-		this.hpkpRoPolicyString = hpkpRoPolicy_info.toString();
+	public void setHpkpRoPolicyString(String hpkpRoPolicyString) {
+		this.hpkpRoPolicyString = hpkpRoPolicy.toString();
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "dfsd";
+		return "key: " + key + ", cert: " + cert + ", chain: " + chain + ", protocols: " + protocols + ", suites: " + suites + ", vulnBeast: " + vulnBeast + ", renegSupport: " + renegSupport + 
+				", sessionResumption: " + sessionResumption + ", ocspStapling: " + ocspStapling + ", supportsRc4: " + supportsRc4 + ", rc4WithModern: " + rc4WithModern + 
+				", rc4Only: " + rc4Only + ", sims: " + sims + ", heartbleed: " + heartbleed + ", heartbeat: " + heartbeat + ", openSslCcs: " + openSslCcs + ", poodle: " +  poodle +
+				", poodleTls" + poodleTls + ", fallbackScsv:" + fallbackScsv + ", freak: " + freak + ", dhPrimes: " + dhPrimes + ", dhUsesKnowPrimes: " + dhUsesKnownPrimes + ", dhYsReuse: " + dhYsReuse +
+				", logjam: " + logjam + ", chaCha20Preference: " + chaCha20Preference;
 	}
 
 }

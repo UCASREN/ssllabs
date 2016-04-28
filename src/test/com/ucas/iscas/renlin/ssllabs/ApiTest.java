@@ -7,15 +7,17 @@ import com.google.gson.Gson;
 import com.ucas.iscas.renlin.pojo.Host;
 import com.ucas.iscas.renlin.ssllabs.Api;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
 public class ApiTest {
 	@Test
-	public void testFetchApiInformation() {
+	public void testFetchApiInformation() throws JSONException {
 		Api api = new Api();
 		JSONObject apiInformation = api.fetchApiInfo();
 		System.out.println(apiInformation);
+		System.out.println("currentAssessments: " + apiInformation.getInt("currentAssessments"));
 		ApiAssert.assertNotNull("JSONObject is null", apiInformation);
 		ApiAssert.assertApiDataFetched(apiInformation);
 	}

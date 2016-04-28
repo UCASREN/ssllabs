@@ -10,7 +10,7 @@ import javax.persistence.Version;
  * Simclient entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "simclient", catalog = "ssllabs")
+@Table(name = "simclient")
 public class Simclient implements java.io.Serializable {
 
 	// Fields
@@ -100,4 +100,9 @@ public class Simclient implements java.io.Serializable {
 		this.isReference = isReference;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "name: " + name + ", platform: " + platform + ", version: " + version + ", isReference: " + isReference;
+	}
 }

@@ -68,5 +68,11 @@ public class Chain implements java.io.Serializable {
 	public void setIssues(Short issues) {
 		this.issues = issues;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "certs: " + certs + ", issues: " + issues;
+	}
 
 }

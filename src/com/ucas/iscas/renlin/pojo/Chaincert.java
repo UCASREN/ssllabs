@@ -214,5 +214,12 @@ public class Chaincert implements java.io.Serializable {
 	public void setRaw(String raw) {
 		this.raw = raw;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "subject: " + subject + ", label: " + label + ", notBefore: " + notBefore + ", notAfer: " + notAfter + ", issueSubject" + issuerSubject + ", issuerlabel: " + issuerLabel +
+				", sigAlg: " + sigAlg + ", issues: " + issues + ", keyAlg: " + keyAlg + ", keySize: " + keySize + ", keyStrength: " + keyStrength + ", revocationStatus: " + revocationStatus;
+	}
 
 }

@@ -57,5 +57,11 @@ public class Simdetails implements java.io.Serializable {
 	public void setResults(Set<Simulation> results) {
 		this.results = results;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "results: " + results;
+	}
 
 }

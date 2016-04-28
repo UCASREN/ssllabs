@@ -98,5 +98,11 @@ public class Protocol implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "id: " + iid + ", name: " + name + ", version: " + version + ", v2SuitesDisabled: " + v2suitesDisabled + ", q: " + q;
+	} 
 
 }

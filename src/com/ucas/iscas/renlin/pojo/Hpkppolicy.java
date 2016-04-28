@@ -147,5 +147,11 @@ public class Hpkppolicy implements java.io.Serializable {
 	public void setDirectives(Directive directives) {
 		this.directives = directives;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "status: " + status + ", header: " + header + ", error: " + error + ", maxAge: " + maxAge + ", includeSubDomains: " + includeSubDomains;
+	}
 
 }

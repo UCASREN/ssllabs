@@ -98,5 +98,11 @@ public class Simulation implements java.io.Serializable {
 	public void setSuiteId(Integer suiteId) {
 		this.suiteId = suiteId;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "client: " + client + ", errorCode: " + errorCode + ", protocolld: " + protocolId + ", suiteId: " + suiteId;
+	}
 
 }

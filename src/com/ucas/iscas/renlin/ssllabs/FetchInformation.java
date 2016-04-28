@@ -20,7 +20,7 @@ public class FetchInformation{
 		
 		// 执行任务
 		Api api = new Api();
-		for (int i = 0; i < urls.length; i ++){
+		for (int i = 0; i < 100; i ++){
 			SingleTask task = new SingleTask(urls[i]);
 			executor.execute(task);	
 			try {

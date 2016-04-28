@@ -251,5 +251,12 @@ public class Cert implements java.io.Serializable {
 	public void setSct(Boolean sct) {
 		this.sct = sct;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "subject: " + subject + ", commonNames: " + commonNames + ", altNames: " + altNames + ", notBefore: " + notBefore + ", notAfter: " + notAfter + ", issuerSubject: " + issuerSubject +
+				", sigAlg: " + sigAlg + ", revocationInfo: " + revocationInfo + ", revocatioStatus: " + revocationStatus + ", validationType: " +  validationType + ", issues: " + issues;
+	}
 
 }

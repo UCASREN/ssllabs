@@ -135,4 +135,9 @@ public class Hstspolicy implements java.io.Serializable {
 		this.directives = directives;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "LONG_MAX_AGE: " + LONG_MAX_AGE + ", header: " + header + ", status: " + status + ", error: " + error + ", maxAge" + maxAge + ", includeSubDomains: " + includeSubDomains + ", preload: " + preload;
+	}
 }

@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -42,7 +44,7 @@ public class Endpoint implements java.io.Serializable {
 	private Integer eta;
 	private Short delegation;
 	
-	private Endpointdetails details_info;
+	public Endpointdetails details;
 	
 	private String detailsString;
 
@@ -63,7 +65,7 @@ public class Endpoint implements java.io.Serializable {
 			String statusDetailsMessage, String grade,
 			String gradeTrustIgnored, Boolean hasWarnings,
 			Boolean isExceptional, Short progress, Integer duration,
-			Integer eta, Short delegation, Endpointdetails details_info) {
+			Integer eta, Short delegation, Endpointdetails details) {
 		this.id = id;
 		this.host = host.getHost();
 		this.ipAddress = ipAddress;
@@ -79,12 +81,13 @@ public class Endpoint implements java.io.Serializable {
 		this.duration = duration;
 		this.eta = eta;
 		this.delegation = delegation;
-		this.details_info = details_info;
-		this.detailsString = details_info.toString();
+		this.details = details;
+		this.detailsString = details.toString();
 	}
 
 	// Property accessors
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -224,22 +227,28 @@ public class Endpoint implements java.io.Serializable {
 
 /*    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="endpointdetails_id")*/
-	public Endpointdetails getDetails_info() {
+/*	public Endpointdetails getDetails_info() {
 		return details_info;
 	}
 
 	public void setDetails_info(Endpointdetails details_info) {
 		this.details_info = details_info;
-	}
+	}*/
 
 	@Lob
 	@Basic(fetch=FetchType.LAZY)
-	@Column(name="details_info", columnDefinition="TEXT")
+	@Column(name="details", columnDefinition="TEXT")
 	public String getDetailsString() {
-		return detailsString;
+		return details.toString();
 	}
-	public void setDetailsString() {
-		this.detailsString = details_info.toString();
+	public void setDetailsString(String detailsString) {
+		this.detailsString = details.toString();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "ip: " + ipAddress + ", serverName: " + serverName + ", grade: " + grade + ", gradeTrustIgnored: " + gradeTrustIgnored + 
+				", hasWarnings: " + hasWarnings + ", isExceptional: " + isExceptional + ", details: " + details.toString();
+	}
 }

@@ -1,6 +1,7 @@
 package com.ucas.iscas.renlin.pojo;
 
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -100,4 +101,9 @@ public class Hstspreload implements java.io.Serializable {
 		this.sourceTime = sourceTime;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "source: " + source + ", status: " + status + ", error: " + error + ", sourceTime: " + sourceTime;
+	}
 }

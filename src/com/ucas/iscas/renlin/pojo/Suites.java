@@ -68,5 +68,11 @@ public class Suites implements java.io.Serializable {
 	public void setPreference(Boolean preference) {
 		this.preference = preference;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "list: " + list + ", preference: " + preference;
+	}
 
 }

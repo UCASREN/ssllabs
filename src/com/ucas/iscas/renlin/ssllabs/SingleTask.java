@@ -1,11 +1,22 @@
 package com.ucas.iscas.renlin.ssllabs;
 
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.Set;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import test.com.ucas.iscas.renlin.hibernate.HibernateUtil;
+
+import com.google.gson.Gson;
 import com.ucas.iscas.renlin.data.AssessmentResults;
+import com.ucas.iscas.renlin.pojo.Endpoint;
+import com.ucas.iscas.renlin.pojo.Endpointdetails;
+import com.ucas.iscas.renlin.pojo.Host;
 
 public class SingleTask implements Runnable {
 	private String url;
@@ -90,16 +101,38 @@ public class SingleTask implements Runnable {
 		}
 
 		// 3. 存储评估结果
-		try {
-			AssessmentResults.saveAssessmentResults(hostInformation);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	    saveAssessmentResults(hostInformation);
 	}
 
+	private void saveAssessmentResults(JSONObject hostInformation) {
+		// TODO Auto-generated method stub
+		Session session = null;
+    	Transaction tx = null;
+    	try{
+    		session = HibernateUtil.getSession();
+    		tx = session.beginTransaction();
+    		Api api = new Api();
+    		Host host = new Gson().fromJson(hostInformation.toString(), Host.class);
+    		Set<Endpoint> endpoints = host.endpoints;
+    		Iterator<Endpoint> iterator = endpoints.iterator();
+    		while (iterator.hasNext()){
+    			Endpoint next = iterator.next();
+    			next.setHost(host);
+    			Endpointdetails details = next.details;
+    			details.hostname = host;
+    			details.endpoint = next;
+    			session.save(next);
+    			session.save(details);
+    		}	
+            session.save(host);
+    		tx.commit();
+    	}catch(HibernateException e){
+    		if (tx != null)
+    			tx.rollback();
+    		e.printStackTrace();
+    		throw e;
+    	}finally{
+    		HibernateUtil.closeSession();
+    	}
+    }
 }
