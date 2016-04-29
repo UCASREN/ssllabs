@@ -11,11 +11,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.cfg.Configuration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Utilities {
+	
+	// 初始化数据库
+    public static void initialDB(){
+    	Configuration cfg = new Configuration().configure();
+    	SchemaExport se = new SchemaExport(cfg);
+    	//第一个参数 是否生成ddl脚本  第二个参数  是否执行到数据库中
+    	se.create(true, true);
+    }
 
 	// 将JSON转化为Map
 	public static Map<String, Object> jsonToMap(JSONObject json)

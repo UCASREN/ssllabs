@@ -25,7 +25,7 @@ import test.com.ucas.iscas.renlin.pojo.Student;
 
 public class HibernateTest {
 
-	/*@Test
+/*	@Test
     public void testCreateDB(){
     	Configuration cfg = new Configuration().configure();
     	SchemaExport se = new SchemaExport(cfg);
@@ -139,7 +139,7 @@ public class HibernateTest {
     		session = HibernateUtil.getSession();
     		tx = session.beginTransaction();
     		Api api = new Api();
-    		JSONObject hostInformation = api.fetchHostInformation("google.com", false, false, false, null, "done", true);
+    		JSONObject hostInformation = api.fetchHostInformation("kat.cr", false, false, false, null, "done", true);
     		System.out.println(hostInformation);
     		Host host = new Gson().fromJson(hostInformation.toString(), Host.class);
     		Set<Endpoint> endpoints = host.endpoints;

@@ -5,7 +5,7 @@
 	<session-factory>
 		<!--数据库信息 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql:///ssl</property>
+		<property name="connection.url">jdbc:mysql:///ssllabs</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">123456</property>
 		<property name="connection.useUnicode">true</property>
@@ -13,8 +13,8 @@
 
 		<!--hibernate可选项 -->
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
 		<!-- 映射类 -->
 	<!-- 	<mapping class="com.ucas.iscas.renlin.pojo.Endpoint" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Host" />

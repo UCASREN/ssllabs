@@ -15,17 +15,17 @@ public class FetchInformation{
 		ExecutorService executor = Executors.newFixedThreadPool(25);
 		
 		// 读取URL
-		String pathName = "E:\\桌面\\certs\\Alexa_10W.txt";
+		String pathName = args[0];
 		String[] urls = FileFind.getRealSiteNames(pathName);
 		
 		// 执行任务
 		Api api = new Api();
-		for (int i = 0; i < 100; i ++){
+		for (int i = Integer.valueOf(args[1]); i < Integer.valueOf(args[2]); i ++){
 			SingleTask task = new SingleTask(urls[i]);
 			executor.execute(task);	
 			try {
 				// 每个新请求的发起的时间间隔为1s
-				Thread.currentThread().sleep(2000);
+				Thread.currentThread().sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

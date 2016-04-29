@@ -20,7 +20,7 @@ public class Protocol implements java.io.Serializable {
 	private String name;
 	private Integer id;
 	private Boolean v2suitesDisabled;
-	private Short q;
+	private Short q;  // short
 
 	// Constructors
 

@@ -24,7 +24,7 @@ public class Suite implements java.io.Serializable {
 	private Integer dhYs;
 	private Integer ecdhBits;
 	private Integer ecdhStrength;
-	private Boolean q;
+	private short q;//number
 
 	// Constructors
 
@@ -40,7 +40,7 @@ public class Suite implements java.io.Serializable {
 	/** full constructor */
 	public Suite(Integer iid, Integer id, String name, Integer cipherStrength,
 			Integer dhStrength, Integer dhP, Integer dhG, Integer dhYs,
-			Integer ecdhBits, Integer ecdhStrength, Boolean q) {
+			Integer ecdhBits, Integer ecdhStrength, short q) {
 		this.iid = iid;
 		this.id = id;
 		this.name = name;
@@ -147,11 +147,11 @@ public class Suite implements java.io.Serializable {
 	}
 
 	@Column(name = "q")
-	public Boolean getQ() {
+	public short getQ() {
 		return this.q;
 	}
 
-	public void setQ(Boolean q) {
+	public void setQ(short q) {
 		this.q = q;
 	}
 	

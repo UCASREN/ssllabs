@@ -19,7 +19,7 @@ public class Key implements java.io.Serializable {
 	private Integer strength;
 	private String alg;
 	private Boolean debianFlaw;
-	private Boolean q;
+	private Short q; // short
 
 	// Constructors
 
@@ -34,7 +34,7 @@ public class Key implements java.io.Serializable {
 
 	/** full constructor */
 	public Key(Integer id, Integer size, Integer strength, String alg,
-			Boolean debianFlaw, Boolean q) {
+			Boolean debianFlaw, Short q) {
 		this.id = id;
 		this.size = size;
 		this.strength = strength;
@@ -91,11 +91,11 @@ public class Key implements java.io.Serializable {
 	}
 
 	@Column(name = "q")
-	public Boolean getQ() {
+	public Short getQ() {
 		return this.q;
 	}
 
-	public void setQ(Boolean q) {
+	public void setQ(Short q) {
 		this.q = q;
 	}
 	

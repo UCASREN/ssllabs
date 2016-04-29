@@ -637,7 +637,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "cert", columnDefinition="TEXT")
 	public String getCertString() {
-		return cert.toString();
+		return cert == null ? "" : cert.toString();
 	}
 	public void setCertString(String cerString) {
 		this.certString = cert.toString();
@@ -647,7 +647,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "chain", columnDefinition="LONGTEXT")
 	public String getChainString() {
-		return chain.toString();
+		return chain == null ? "" : chain.toString();
 	}
 	public void setChainString(String chaiString) {
 		this.chainString = chain.toString();
@@ -658,7 +658,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "protocols", columnDefinition="TEXT")
 	public String getProtocolsString() {
-		return protocols.toString();
+		return protocols == null ? "" : protocols.toString();
 	}
 	public void setProtocolsString(String protocolsString) {
 		this.protocolsString = protocols.toString();
@@ -668,7 +668,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "suites", columnDefinition="TEXT")
 	public String getSuitesString() {
-		return suites.toString();
+		return suites == null ? "" : suites.toString();
 	}
 	public void setSuitesString(String suitesString) {
 		this.suitesString = suites.toString();
@@ -678,7 +678,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name = "sims", columnDefinition="LONGTEXT")
 	public String getSimsString() {
-		return sims.toString();
+		return sims == null ? "" : sims.toString();
 	}
 	public void setSimsString(String simsString) {
 		this.simsString = sims.toString();
@@ -689,7 +689,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Column(name = "dhPrimes", columnDefinition="TEXT")
 	//@ElementCollection(targetClass=String.class)
 	public String getDhPrimeString() {
-		return dhPrimes.toString();
+		return dhPrimes == null ? "" : dhPrimes.toString();
 	}
 	public void setDhPrimeString(String dhPrimeString) {
 		this.dhPrimeString = dhPrimes.toString();
@@ -698,7 +698,7 @@ public class Endpointdetails implements java.io.Serializable {
 
 	@Column(name = "hstsPolicy")
 	public String getHstsPolicyString() {
-		return hstsPolicy.toString();
+		return hstsPolicy == null ? "" : hstsPolicy.toString();
 	}
 	public void setHstsPolicyString(String hstsPolicyString) {
 		this.hstsPolicyString = hstsPolicy.toString();
@@ -707,7 +707,7 @@ public class Endpointdetails implements java.io.Serializable {
 	@Type(type="text")
 	@Column(name = "hstsPreloads")
 	public String getHstsPreloadsString() {
-		return hstsPreloads.toString();
+		return hstsPreloads == null ? "" : hstsPreloads.toString();
 	}
 	public void setHstsPreloadsString(String hstsPreloadsString) {
 		this.hstsPreloadsString = hstsPreloads.toString();
@@ -715,7 +715,7 @@ public class Endpointdetails implements java.io.Serializable {
 
 	@Column(name = "hpkpPolicy")
 	public String getHpkpPolicyString() {
-		return hpkpPolicy.toString();
+		return hpkpPolicy == null ? "" : hpkpPolicy.toString();
 	}
 	public void setHpkpPolicyString(String hpkpPolicyString) {
 		this.hpkpPolicyString = hpkpPolicy.toString();
@@ -723,7 +723,7 @@ public class Endpointdetails implements java.io.Serializable {
 
 	@Column(name = "hpkpRoPolicy")
 	public String getHpkpRoPolicyString() {
-		return hpkpRoPolicy.toString();
+		return hpkpRoPolicy == null ? "" : hpkpRoPolicy.toString();
 	}
 	public void setHpkpRoPolicyString(String hpkpRoPolicyString) {
 		this.hpkpRoPolicyString = hpkpRoPolicy.toString();

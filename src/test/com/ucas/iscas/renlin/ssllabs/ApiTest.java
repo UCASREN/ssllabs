@@ -25,7 +25,7 @@ public class ApiTest {
 	@Test
 	public void testFetchHostInformation(){
 		Api api = new Api();
-		JSONObject hostInformation = api.fetchHostInformation("google.com", false, false, false, null, "done", true);
+		JSONObject hostInformation = api.fetchHostInformation("a", false, false, false, null, "done", true);
 		System.out.println(hostInformation);
 		/*
 		 * Map<String, Class> classMap = new HashMap<String, Class>();
@@ -45,7 +45,7 @@ public class ApiTest {
 		Host test = new Gson().fromJson(hostInformation.toString(), Host.class);
 		System.out.println("+++++++"+test.getHost());
 		System.out.println(test.getStatus());
-		System.out.println(test.getEndpoints().size());
+		//System.out.println(test.getEndpoints().size());
 
 		//ApiAssert.assertApiDataFetched(hostInformation);
 

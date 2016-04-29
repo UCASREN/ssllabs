@@ -69,13 +69,17 @@ public class SingleTask implements Runnable {
 		JSONObject hostInformation = null;
 		// 1. 发起新的请求
 		AssessmentRequest(url, true, "done");
-		sleep(10000);
+		sleep(5000);
 
 		// 2. 查询请求状态
 		boolean finish = false;
 		while (!finish) {
 			hostInformation = AssessmentRequest(url, false, "done");
 			try {
+				while (!hostInformation.has("status")) {
+				    sleep(5000);
+				    hostInformation = AssessmentRequest(url, true, "done");
+			    }
 				String status = hostInformation.getString("status");
 				switch (status) {
 				case "DNS":
@@ -88,8 +92,8 @@ public class SingleTask implements Runnable {
 					finish = true;
 					break;
 				case "ERROR":
-					// 处理错误的地方
-					break;
+					// 处理错误的地方，直接结束本次请求，可能原因url非法，不可达。
+					return;
 				default:
 					break;
 				}
