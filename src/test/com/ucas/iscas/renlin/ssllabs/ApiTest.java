@@ -25,7 +25,7 @@ public class ApiTest {
 	@Test
 	public void testFetchHostInformation(){
 		Api api = new Api();
-		JSONObject hostInformation = api.fetchHostInformation("a", false, false, false, null, "done", true);
+		JSONObject hostInformation = api.fetchHostInformation("https://www.facebook.com/", false, false, false, null, "done", true);
 		System.out.println(hostInformation);
 		/*
 		 * Map<String, Class> classMap = new HashMap<String, Class>();

@@ -32,8 +32,8 @@
 		<mapping class="com.ucas.iscas.renlin.pojo.Simdetails" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Hpkppolicy" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Hstspolicy" /> -->
-        <mapping class="test.com.ucas.iscas.renlin.pojo.Grade" />
-		<mapping class="test.com.ucas.iscas.renlin.pojo.Student" />
+        <!-- <mapping class="test.com.ucas.iscas.renlin.pojo.Grade" />
+		<mapping class="test.com.ucas.iscas.renlin.pojo.Student" /> -->
 		<mapping class="com.ucas.iscas.renlin.pojo.Endpoint" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Host" />
 		<mapping class="com.ucas.iscas.renlin.pojo.Endpointdetails" />	

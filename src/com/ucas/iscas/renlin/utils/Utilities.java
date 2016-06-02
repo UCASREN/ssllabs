@@ -16,6 +16,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
 
 public class Utilities {
 	

@@ -1,6 +1,6 @@
-package com.ucas.iscas.renlin.ssllabs;
+package com.ucas.iscas.renlin.url.suburl;
 
-import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -13,20 +13,21 @@ import org.json.JSONObject;
 import test.com.ucas.iscas.renlin.hibernate.HibernateUtil;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.ucas.iscas.renlin.data.AssessmentResults;
 import com.ucas.iscas.renlin.pojo.Endpoint;
 import com.ucas.iscas.renlin.pojo.Endpointdetails;
 import com.ucas.iscas.renlin.pojo.Host;
+import com.ucas.iscas.renlin.ssllabs.Api;
 
-public class SingleTask implements Runnable {
+public class SubTask implements Runnable{
 	private String url;
 	private Api api;
+	private Set<String> urlSet;
 
-	public SingleTask(String url) {
+	public SubTask(String url) {
 		super();
 		this.url = url;
 		this.api = new Api();
+		this.urlSet = new HashSet<String>();
 	}
 
 	public String getUrl() {
@@ -64,10 +65,21 @@ public class SingleTask implements Runnable {
 		}
 	}
 
+	public Set<String> getUrlSet() {
+		return urlSet;
+	}
+	
+	public void setUrlSet(Set<String> urlSet) {
+		this.urlSet = urlSet;
+	}
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		JSONObject hostInformation = null;
+		// 0. 解析子域名获取更多好的子域名
+		
+		
 		// 1. 发起新的请求
 		AssessmentRequest(url, true, "done");
 		sleep(5000);
@@ -109,7 +121,7 @@ public class SingleTask implements Runnable {
 	    saveAssessmentResults(hostInformation);
 	}
 
-	private void saveAssessmentResults(JSONObject hostInformation){
+	private void saveAssessmentResults(JSONObject hostInformation) {
 		// TODO Auto-generated method stub
 		Session session = null;
     	Transaction tx = null;
@@ -118,7 +130,6 @@ public class SingleTask implements Runnable {
     		tx = session.beginTransaction();
     		Api api = new Api();
     		Host host = new Gson().fromJson(hostInformation.toString(), Host.class);
-    		
     		Set<Endpoint> endpoints = host.endpoints;
     		Iterator<Endpoint> iterator = endpoints.iterator();
     		while (iterator.hasNext()){
@@ -135,19 +146,9 @@ public class SingleTask implements Runnable {
     	}catch(HibernateException e){
     		if (tx != null)
     			tx.rollback();
-    		
     		e.printStackTrace();
     		throw e;
-    	}catch (JsonSyntaxException j) {
-			// TODO: handle exception
-    		try {
-				System.out.println(hostInformation.get("host"));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		System.out.println(hostInformation);
-		}finally{
+    	}finally{
     		HibernateUtil.closeSession();
     	}
     }
